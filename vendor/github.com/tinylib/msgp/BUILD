@@ -1,9 +1,11 @@
 # BUILD file for vendor library tinylib/msgp
 #
-load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test", "go_prefix")
+
+go_prefix("github.com/tinylib/msgp")
 
 go_library(
-    name = "msgp",
+    name = "go_default_library",
     srcs = [
         "msgp/advise_linux.go",
         "msgp/circular.go",
@@ -25,7 +27,7 @@ go_library(
         "msgp/write_bytes.go",
     ],
     visibility = ["//visibility:public"],
-    deps = [ "//vendor/github.com/philhofer:fwd" ],
+    deps = [ "//vendor/github.com/philhofer/fwd:go_default_library" ],
 )
 
 # The above configuration works for linux. For
@@ -52,7 +54,7 @@ go_test(
         "msgp/write_bytes_test.go",
         "msgp/write_test.go",
     ],
-    library = ":msgp",
+    library = ":go_default_library",
 )
 
 # TODO: To get this test package working we
